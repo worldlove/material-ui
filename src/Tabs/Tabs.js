@@ -10,7 +10,7 @@ import TabTemplate from './TabTemplate';
 import InkBar from './InkBar';
 
 function getStyles(props, context) {
-  const {tabs} = context.muiTheme;
+  let tabs = props.theme ? context.muiTheme[props.theme] : context.muiTheme.tabs;
 
   return {
     tabItemContainer: {
@@ -75,6 +75,10 @@ class Tabs extends Component {
      * Makes Tabs controllable and selects the tab whose value prop matches this prop.
      */
     value: PropTypes.any,
+    /**
+     * Add a props that can set many different styles use this theme name.
+     */
+    theme: PropTypes.string
   };
 
   static defaultProps = {
@@ -184,6 +188,7 @@ class Tabs extends Component {
       tabItemContainerStyle,
       tabTemplate,
       tabTemplateStyle,
+      theme,
       ...other
     } = this.props;
 
@@ -214,6 +219,10 @@ class Tabs extends Component {
       return cloneElement(tab, {
         key: index,
         index: index,
+        /*
+         * Transfer the theme props to it's children
+         */
+        theme: theme,
         selected: this.getSelected(tab, index),
         width: `${width}%`,
         onTouchTap: this.handleTabTouchTap,
