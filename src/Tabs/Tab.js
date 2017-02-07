@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import EnhancedButton from '../internal/EnhancedButton';
 
 function getStyles(props, context) {
-  const {tabs} = context.muiTheme;
+  let tabs = props.theme ? context.muiTheme[props.theme] : context.muiTheme.tabs;
 
   return {
     root: {
@@ -79,6 +79,10 @@ class Tab extends Component {
      * This property is overriden by the Tabs component.
      */
     width: PropTypes.string,
+    /**
+     * Add a props that can set many different styles use this theme name.
+     */
+    theme: PropTypes.string
   };
 
   static contextTypes = {
@@ -103,6 +107,7 @@ class Tab extends Component {
       style,
       value, // eslint-disable-line no-unused-vars
       width, // eslint-disable-line no-unused-vars
+      theme,
       ...other
     } = this.props;
 
@@ -125,7 +130,8 @@ class Tab extends Component {
     }
 
     const rippleOpacity = 0.3;
-    const rippleColor = this.context.muiTheme.tabs.selectedTextColor;
+    let tabs = theme ? this.context.muiTheme[theme] : this.context.muiTheme.tabs;
+    const rippleColor = tabs.selectedTextColor;
 
     return (
       <EnhancedButton
