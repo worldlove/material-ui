@@ -104,6 +104,7 @@ function getStyles(props, context, state) {
     },
 
     primaryText: {
+      fontSize: listItem.primaryTextSize
     },
 
     rightIconButton: {
@@ -122,7 +123,7 @@ function getStyles(props, context, state) {
     },
 
     secondaryText: {
-      fontSize: 14,
+      fontSize: listItem.secondaryTextSize || 14,
       lineHeight: threeLine ? '18px' : '16px',
       height: threeLine ? 36 : 16,
       margin: 0,
