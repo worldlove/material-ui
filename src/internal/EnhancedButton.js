@@ -63,7 +63,6 @@ class EnhancedButton extends Component {
     touchRippleColor: PropTypes.string,
     touchRippleOpacity: PropTypes.number,
     type: PropTypes.string,
-    theme: PropTypes.string
   };
 
   static defaultProps = {
