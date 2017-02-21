@@ -22,13 +22,14 @@ function getStyles(props, context, state) {
     rightToggle,
     secondaryText,
     secondaryTextLines,
+    theme,
   } = props;
 
   const {muiTheme} = context;
-  const {listItem} = muiTheme;
+  const listItem = theme || muiTheme.listItem;
 
-  const textColor = muiTheme.baseTheme.palette.textColor;
-  const hoverColor = props.hoverColor || fade(textColor, 0.1);
+  const textColor = theme.textColor || muiTheme.baseTheme.palette.textColor;
+  const hoverColor = props.hoverColor || theme.hoverColor || fade(textColor, 0.1);
   const singleAvatar = !secondaryText && (leftAvatar || rightAvatar);
   const singleNoAvatar = !secondaryText && !(leftAvatar || rightAvatar);
   const twoLine = secondaryText && secondaryTextLines === 1;
@@ -277,6 +278,10 @@ class ListItem extends Component {
      * Override the inline-styles of the root element.
      */
     style: PropTypes.object,
+    /**
+     * Override the default muiTheme style.
+     */
+    theme: PropTypes.object,
   };
 
   static defaultProps = {
@@ -549,6 +554,7 @@ class ListItem extends Component {
       secondaryText,
       secondaryTextLines, // eslint-disable-line no-unused-vars
       style,
+      theme,
       ...other
     } = this.props;
 
@@ -558,7 +564,7 @@ class ListItem extends Component {
 
     if (leftIcon) {
       const additionalProps = {
-        color: leftIcon.props.color || this.context.muiTheme.listItem.leftIconColor,
+        color: leftIcon.props.color || theme.leftIconColor || this.context.muiTheme.listItem.leftIconColor,
       };
       this.pushElement(
         contentChildren,
@@ -570,7 +576,7 @@ class ListItem extends Component {
 
     if (rightIcon) {
       const additionalProps = {
-        color: rightIcon.props.color || this.context.muiTheme.listItem.rightIconColor,
+        color: rightIcon.props.color || theme.rightIconColor || this.context.muiTheme.listItem.rightIconColor,
       };
       this.pushElement(
         contentChildren,
