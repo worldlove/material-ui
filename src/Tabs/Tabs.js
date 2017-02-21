@@ -10,7 +10,7 @@ import TabTemplate from './TabTemplate';
 import InkBar from './InkBar';
 
 function getStyles(props, context) {
-  let tabs = props.theme ? context.muiTheme[props.theme] : context.muiTheme.tabs;
+  const tabs = props.theme ? props.theme : context.muiTheme.tabs;
 
   return {
     tabItemContainer: {
@@ -78,7 +78,7 @@ class Tabs extends Component {
     /**
      * Add a props that can set many different styles use this theme name.
      */
-    theme: PropTypes.string
+    theme: PropTypes.object
   };
 
   static defaultProps = {
@@ -158,11 +158,11 @@ class Tabs extends Component {
   handleTabTouchTap = (value, event, tab) => {
     const valueLink = this.getValueLink(this.props);
     const index = tab.props.index;
-
-    if ((valueLink.value && valueLink.value !== value) ||
-      this.state.selectedIndex !== index) {
-      valueLink.requestChange(value, event, tab);
-    }
+    // 点击触发，删除判断
+    //if ((valueLink.value && valueLink.value !== value) ||
+    //  this.state.selectedIndex !== index) {
+    valueLink.requestChange(value, event, tab);
+    //}
 
     this.setState({selectedIndex: index});
 
@@ -239,13 +239,14 @@ class Tabs extends Component {
 
     const inkBarContainerWidth = tabItemContainerStyle ?
       tabItemContainerStyle.width : '100%';
+    const inkBarContainerHeight = '0';
 
     return (
       <div style={prepareStyles(Object.assign({}, style))} {...other}>
         <div style={prepareStyles(Object.assign(styles.tabItemContainer, tabItemContainerStyle))}>
           {tabs}
         </div>
-        <div style={{width: inkBarContainerWidth}}>
+        <div style={{width: inkBarContainerWidth, height: inkBarContainerHeight}}>
           {inkBar}
         </div>
         <div
