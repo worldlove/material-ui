@@ -1,16 +1,14 @@
 import React, {PropTypes, Children, cloneElement} from 'react';
 
 function getStyles(props, context) {
-  const {
-    bottomNavigation,
-  } = context.muiTheme;
+  const bottomNavigation = props.theme ? props.theme : context.muiTheme.bottomNavigation;
 
   const styles = {
     root: {
       position: 'relative',
       width: '100%',
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: props.justify ? props.justify :'center',
       backgroundColor: bottomNavigation.backgroundColor,
       height: bottomNavigation.height,
     },
@@ -27,6 +25,8 @@ const BottomNavigation = (props, context) => {
     children,
     style,
     selectedIndex,
+    theme,
+    justify,
     ...other
   } = props;
 
@@ -37,6 +37,7 @@ const BottomNavigation = (props, context) => {
     return cloneElement(child, {
       style: Object.assign({}, styles.item, child.props.style),
       selected: index === selectedIndex,
+      theme: theme
     });
   });
 
@@ -61,6 +62,14 @@ BottomNavigation.propTypes = {
    * Override the inline-styles of the root element.
    */
   style: PropTypes.object,
+  /**
+   * Override the default theme.
+   */
+  theme: PropTypes.object,
+  /**
+   * 设置对齐方式
+   */
+  justify: PropTypes.string,
 };
 
 BottomNavigation.contextTypes = {

@@ -3,11 +3,7 @@ import EnhancedButton from '../internal/EnhancedButton';
 
 function getStyles(props, context) {
   const {selected} = props;
-  const {
-    muiTheme: {
-      bottomNavigation,
-    },
-  } = context;
+  const bottomNavigation = props.theme ? props.theme : context.muiTheme.bottomNavigation;
 
   const color = selected ?
     bottomNavigation.selectedColor :
@@ -16,12 +12,12 @@ function getStyles(props, context) {
   const styles = {
     root: {
       transition: 'padding-top 0.3s',
-      paddingTop: selected ? 6 : 8,
+      paddingTop: selected ? 6 : 7,
       paddingBottom: 10,
       paddingLeft: 12,
       paddingRight: 12,
-      minWidth: 80,
-      maxWidth: 168,
+      minWidth: 60,
+      maxWidth: 110,
     },
     label: {
       fontSize: selected ?
@@ -35,6 +31,7 @@ function getStyles(props, context) {
       /**
        * Used to ensure SVG icons are centered
        */
+      height: bottomNavigation.iconHeight,
       width: '100%',
     },
     iconColor: color,
@@ -48,6 +45,7 @@ const BottomNavigationItem = (props, context) => {
     label,
     icon,
     style,
+    theme,
     ...other
   } = props;
 
@@ -83,6 +81,10 @@ BottomNavigationItem.propTypes = {
    * Override the inline-styles of the root element.
    */
   style: PropTypes.object,
+  /**
+   * Override the default theme.
+   */
+  theme: PropTypes.object,
 };
 
 BottomNavigationItem.contextTypes = {
