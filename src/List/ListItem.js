@@ -27,9 +27,10 @@ function getStyles(props, context, state) {
 
   const {muiTheme} = context;
   const listItem = theme || muiTheme.listItem;
+  const listTheme = theme || {};
 
-  const textColor = theme.textColor || muiTheme.baseTheme.palette.textColor;
-  const hoverColor = props.hoverColor || theme.hoverColor || fade(textColor, 0.1);
+  const textColor = listTheme.textColor || muiTheme.baseTheme.palette.textColor;
+  const hoverColor = props.hoverColor || listTheme.hoverColor || fade(textColor, 0.1);
   const singleAvatar = !secondaryText && (leftAvatar || rightAvatar);
   const singleNoAvatar = !secondaryText && !(leftAvatar || rightAvatar);
   const twoLine = secondaryText && secondaryTextLines === 1;
@@ -559,13 +560,14 @@ class ListItem extends Component {
       ...other
     } = this.props;
 
+    const listTheme = theme || {};
     const {prepareStyles} = this.context.muiTheme;
     const styles = getStyles(this.props, this.context, this.state);
     const contentChildren = [children];
 
     if (leftIcon) {
       const additionalProps = {
-        color: leftIcon.props.color || theme.leftIconColor || this.context.muiTheme.listItem.leftIconColor,
+        color: leftIcon.props.color || listTheme.leftIconColor || this.context.muiTheme.listItem.leftIconColor,
       };
       this.pushElement(
         contentChildren,
@@ -577,7 +579,7 @@ class ListItem extends Component {
 
     if (rightIcon) {
       const additionalProps = {
-        color: rightIcon.props.color || theme.rightIconColor || this.context.muiTheme.listItem.rightIconColor,
+        color: rightIcon.props.color || listTheme.rightIconColor || this.context.muiTheme.listItem.rightIconColor,
       };
       this.pushElement(
         contentChildren,
