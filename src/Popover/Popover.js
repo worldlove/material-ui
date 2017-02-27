@@ -311,10 +311,10 @@ class Popover extends Component {
       target = this.getTargetPosition(targetEl); // update as height may have changed
       targetPosition = this.applyAutoPositionIfNeeded(anchor, target, targetOrigin, anchorOrigin, targetPosition);
     }
-
-    targetEl.style.top = `${Math.max(0, targetPosition.top)}px`;
-    targetEl.style.left = `${Math.max(0, targetPosition.left)}px`;
-    targetEl.style.maxHeight = `${window.innerHeight}px`;
+    const style = this.props.style ? this.props.style : {};
+    targetEl.style.top = style.top ? style.top : `${Math.max(0, targetPosition.top)}px`;
+    targetEl.style.left = style.left ? style.left : `${Math.max(0, targetPosition.left)}px`;
+    targetEl.style.maxHeight = style.maxHeight ? style.maxHeight :`${window.innerHeight}px`;
   };
 
   autoCloseWhenOffScreen(anchorPosition) {
