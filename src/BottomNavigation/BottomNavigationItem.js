@@ -16,8 +16,8 @@ function getStyles(props, context) {
       paddingBottom: 10,
       paddingLeft: 12,
       paddingRight: 12,
-      minWidth: 80,
-      maxWidth: 110,
+      minWidth: 60,
+      maxWidth: 120,
     },
     label: {
       fontSize: selected ?
