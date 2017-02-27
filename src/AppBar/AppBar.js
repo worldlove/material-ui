@@ -6,7 +6,7 @@ import propTypes from '../utils/propTypes';
 import warning from 'warning';
 
 export function getStyles(props, context) {
-  const {
+  let {
     appBar,
     button: {
       iconButtonSize,
@@ -14,7 +14,15 @@ export function getStyles(props, context) {
     zIndex,
   } = context.muiTheme;
 
-  const flatButtonSize = 36;
+  let flatButtonSize = 36;
+
+  if (props.theme) {
+    appBar = props.theme;
+    if (appBar.iconButtonSize)
+      iconButtonSize = appBar.iconButtonSize;
+    if (appBar.flatButtonSize)
+      flatButtonSize = appBar.flatButtonSize;
+  }
 
   const styles = {
     root: {
@@ -32,8 +40,9 @@ export function getStyles(props, context) {
       textOverflow: 'ellipsis',
       margin: 0,
       paddingTop: 0,
+      paddingLeft: 10,
       letterSpacing: 0,
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: appBar.titleFontWeight,
       color: appBar.textColor,
       height: appBar.height,
@@ -140,6 +149,10 @@ class AppBar extends Component {
      * The shadow of the app bar is also dependent on this property.
      */
     zDepth: propTypes.zDepth,
+    /**
+     * Add a props that can set many different styles use this theme name.
+     */
+    theme: PropTypes.object
   };
 
   static defaultProps = {
@@ -196,6 +209,7 @@ class AppBar extends Component {
       style,
       zDepth,
       children,
+      theme,
       ...other
     } = this.props;
 
@@ -220,7 +234,9 @@ class AppBar extends Component {
       if (iconElementLeft) {
         const iconElementLeftProps = {};
 
-        if (iconElementLeft.type.muiName === 'IconButton') {
+        switch (iconElementLeft.type.muiName) {
+        case 'IconMenu':
+        case 'IconButton':
           const iconElemLeftChildren = iconElementLeft.props.children;
           const iconButtonIconStyle = !(
             iconElemLeftChildren &&
@@ -229,6 +245,14 @@ class AppBar extends Component {
           ) ? styles.iconButtonIconStyle : null;
 
           iconElementLeftProps.iconStyle = Object.assign({}, iconButtonIconStyle, iconElementLeft.props.iconStyle);
+          break;
+
+        case 'FlatButton':
+          iconElementLeftProps.style = Object.assign({}, styles.flatButton, iconElementLeft.props.style);
+          break;
+
+        default:
+          break;
         }
 
         if (!iconElementLeft.props.onTouchTap && this.props.onLeftIconButtonTouchTap) {
