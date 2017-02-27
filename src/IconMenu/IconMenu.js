@@ -120,6 +120,10 @@ class IconMenu extends Component {
      * layer, which will prevent clicks to the underlying elements.
      */
     useLayerForClickAway: PropTypes.bool,
+    /**
+     * Set the style of the popover in IconMenu
+     */
+    popoverStyle: PropTypes.object
   };
 
   static defaultProps = {
@@ -247,6 +251,7 @@ class IconMenu extends Component {
       onTouchTap,
       listStyle,
       menuStyle,
+      popoverStyle,
       style,
       targetOrigin,
       touchTapCloseDelay, // eslint-disable-line no-unused-vars
@@ -327,6 +332,7 @@ You should wrapped it with an <IconButton />.`);
           animated={animated}
           animation={animation}
           context={this.context}
+          style={popoverStyle}
         >
           {menu}
         </Popover>
