@@ -400,6 +400,7 @@ class Popover extends Component {
   }
 
   render() {
+    styles.root = Object.assign(styles.root, this.props.style);
     return (
       <div style={styles.root}>
         <EventListener

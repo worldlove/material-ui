@@ -484,7 +484,7 @@ class Menu extends Component {
     let keyIncrements = elWidth / keyWidth;
     let newWidth;
 
-    keyIncrements = keyIncrements <= 1.5 ? 1.5 : Math.ceil(keyIncrements);
+    keyIncrements = keyIncrements <= 1.5 ? 1.5 : keyIncrements;
     newWidth = keyIncrements * keyWidth;
 
     if (newWidth < minWidth) newWidth = minWidth;

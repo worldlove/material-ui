@@ -959,3 +959,4 @@ export ToggleRadioButtonUnchecked from './toggle/radio-button-unchecked';
 export ToggleStarBorder from './toggle/star-border';
 export ToggleStarHalf from './toggle/star-half';
 export ToggleStar from './toggle/star';
+export CustomeLogo from './custome/logo';
