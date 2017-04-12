@@ -31,8 +31,11 @@ function getStyles(props, context) {
       /**
        * Used to ensure SVG icons are centered
        */
+      fontSize: bottomNavigation.iconHeight,
       height: bottomNavigation.iconHeight,
+      transition: 'color 0.3s, font-size 0.3s',
       width: '100%',
+      color: color,
     },
     iconColor: color,
   };
