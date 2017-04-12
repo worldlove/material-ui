@@ -181,8 +181,8 @@ class IconMenu extends Component {
       return;
     }
 
+    this.props.onRequestChange(false, reason);
     if (this.props.open !== null) {
-      this.props.onRequestChange(false, reason);
     } else {
       this.setState({open: false}, () => {
         // Set focus on the icon button when the menu close
@@ -196,8 +196,8 @@ class IconMenu extends Component {
   }
 
   open(reason, event) {
+    this.props.onRequestChange(true, reason);
     if (this.props.open !== null) {
-      this.props.onRequestChange(true, reason);
 
       return this.setState({
         menuInitiallyKeyboardFocused: Events.isKeyboard(event),
@@ -282,7 +282,11 @@ You should wrapped it with an <IconButton />.`);
     const iconButtonProps = {
       onKeyboardFocus: onKeyboardFocus,
       onTouchTap: (event) => {
-        this.open(Events.isKeyboard(event) ? 'keyboard' : 'iconTap', event);
+        if (this.state.open) {
+          this.close(Events.isKeyboard(event) ? 'keyboard' : 'iconTap', event);
+        } else {
+          this.open(Events.isKeyboard(event) ? 'keyboard' : 'iconTap', event);
+        }
         if (iconButtonElement.props.onTouchTap) {
           iconButtonElement.props.onTouchTap(event);
         }
