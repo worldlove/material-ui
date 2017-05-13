@@ -15,7 +15,7 @@ function getStyles(props) {
   };
 
   const shrinkStyles = props.shrink ? Object.assign({
-    transform: 'scale(0.75) translate(0, -28px)',
+    transform: 'scale(0.9) translate(0, -28px)',
     pointerEvents: 'none',
   }, props.shrinkStyle) : null;
 

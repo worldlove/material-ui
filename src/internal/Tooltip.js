@@ -15,6 +15,10 @@ function getStyles(props, context, state) {
     tooltip,
     borderRadius,
   } = context.muiTheme;
+  let right = horizontalPosition == 'left' ? 12 : null;
+  if (verticalPosition== 'center')  {
+    right = right ?  right + 40 : null;
+  }
 
   const styles = {
     root: {
@@ -30,7 +34,7 @@ function getStyles(props, context, state) {
       borderRadius,
       userSelect: 'none',
       opacity: 0,
-      right: horizontalPosition === 'left' ? 12 : null,
+      right: right,
       left: horizontalPosition === 'center' ?
         (state.offsetWidth - 48) / 2 * -1 :
         horizontalPosition === 'right' ? 12 : null,
@@ -46,7 +50,7 @@ function getStyles(props, context, state) {
       position: 'absolute',
       left: horizontalPosition === 'center' ? '50%' :
         horizontalPosition === 'left' ? '100%' : '0%',
-      top: verticalPosition === 'bottom' ? 0 : '100%',
+      top: verticalPosition === 'bottom' ? 0 : verticalPosition === 'center' ? '20%' :'100%',
       transform: 'translate(-50%, -50%)',
       borderRadius: '50%',
       backgroundColor: 'transparent',

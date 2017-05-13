@@ -47,6 +47,7 @@ const getStyles = (props, context, state) => {
       pointerEvents: 'none',
     },
     input: {
+      display: 'inline-block',
       padding: 0,
       position: 'relative',
       width: '100%',
@@ -84,9 +85,6 @@ const getStyles = (props, context, state) => {
       styles.input.marginTop = 14;
     }
 
-    if (state.errorText) {
-      styles.error.bottom = !props.multiLine ? styles.error.fontSize + 3 : 3;
-    }
   }
 
   if (state.errorText) {
@@ -239,6 +237,14 @@ class TextField extends Component {
      * The value of the text field.
      */
     value: PropTypes.any,
+    /**
+     * The style of label.
+     */
+    labelStyle: PropTypes.object,
+    /**
+     * The div input style of label.
+     */
+    divInputStyle: PropTypes.object,
   };
 
   static defaultProps = {
@@ -408,6 +414,8 @@ class TextField extends Component {
       rows,
       rowsMax,
       textareaStyle,
+      labelStyle,
+      divInputStyle,
       ...other
     } = this.props;
 
@@ -485,12 +493,35 @@ class TextField extends Component {
       rootProps = other;
     }
 
+    let _labelStyle = {
+      display: "inline-block",
+      boxSizing: "border-box",
+      MozBoxSizing: "border-box",
+      marginTop: "36px"
+    };
+    if (labelStyle) {
+      _labelStyle = Object.assign(_labelStyle, labelStyle);
+    }
+
+    let _divInputStyle = {
+      width: "60%",
+      marginLeft: "20px",
+      display: "inline-block",
+      boxSizing: "border-box",
+      MozBoxSizing: "border-box",
+    };
+    if (divInputStyle) {
+      _divInputStyle = Object.assign(_divInputStyle, divInputStyle);
+    }
+
     return (
       <div
         {...rootProps}
         className={className}
         style={prepareStyles(Object.assign(styles.root, style))}
       >
+        {hintText ? <div style={_labelStyle}>{hintText}</div> : null}
+        <div style={_divInputStyle}>
         {floatingLabelTextElement}
         {hintText ?
           <TextFieldHint
@@ -503,6 +534,8 @@ class TextField extends Component {
           null
         }
         {inputElement}
+      </div>
+        {errorTextElement}
         {underlineShow ?
           <TextFieldUnderline
             disabled={disabled}
@@ -516,7 +549,6 @@ class TextField extends Component {
           /> :
           null
         }
-        {errorTextElement}
       </div>
     );
   }
