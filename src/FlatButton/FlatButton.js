@@ -119,6 +119,10 @@ class FlatButton extends Component {
      */
     secondary: PropTypes.bool,
     /**
+     * Set the backgroundColor if disabled is true
+     */
+    disabledColor: PropTypes.string,
+    /**
      * Override the inline-styles of the root element.
      */
     style: PropTypes.object,
@@ -191,6 +195,7 @@ class FlatButton extends Component {
       rippleColor,
       secondary,
       style,
+      disabledColor,
       ...other
     } = this.props;
 
@@ -234,7 +239,7 @@ class FlatButton extends Component {
       borderRadius,
       userSelect: 'none',
       overflow: 'hidden',
-      backgroundColor: hovered ? buttonHoverColor : buttonBackgroundColor,
+      backgroundColor: hovered ? buttonHoverColor : (disabled && disabledColor ? disabledColor : buttonBackgroundColor),
       padding: 0,
       margin: 0,
       textAlign: 'center',
