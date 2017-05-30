@@ -162,6 +162,14 @@ class SelectField extends Component {
      * If provided, the menu will be a controlled component.
      */
     value: PropTypes.any,
+    /**
+     * textLableStyle is custom hintText proptypes
+     */
+    textLabelStyle: PropTypes.object,
+    /**
+     * divInputStyle is custom TextField proptypes
+     */
+    divInputStyle: PropTypes.object,
   };
 
   static defaultProps = {
@@ -207,6 +215,8 @@ class SelectField extends Component {
       onChange,
       selectionRenderer,
       value,
+      textLabelStyle,
+      divInputStyle,
       ...other
     } = this.props;
 
@@ -226,6 +236,8 @@ class SelectField extends Component {
         errorText={errorText}
         underlineStyle={underlineStyle}
         errorStyle={errorStyle}
+        labelStyle={textLabelStyle}
+        divInputStyle={divInputStyle}
         onFocus={onFocus}
         onBlur={onBlur}
         id={id}
