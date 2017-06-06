@@ -33,7 +33,7 @@ class EnhancedTextarea extends Component {
   static propTypes = {
     defaultValue: PropTypes.any,
     disabled: PropTypes.bool,
-    hintText: PropTypes.string,
+    hintText: PropTypes.object,
     onChange: PropTypes.func,
     onHeightChange: PropTypes.func,
     rows: PropTypes.number,
