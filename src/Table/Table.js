@@ -140,11 +140,38 @@ class Table extends Component {
 
   state = {
     allRowsSelected: false,
+    preSelected: []
   };
 
   componentWillMount() {
+    let tBodyArray = [];
+    let tBodyLength = 0;
+    this.props.children.forEach((c) => {
+      if (c.type.muiName == 'TableBody') {
+        tBodyLength = c.props.children;
+      }
+    });
+    for (let i = 0; i < tBodyLength; i++) {
+      tBodyArray.push(i);
+    }
+    this.tBodyArray = tBodyArray;
     if (this.props.allRowsSelected) {
       this.setState({allRowsSelected: true});
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.children != this.props.children) {
+      let tBodyArray = [];
+      let tBodyLength = 0;
+      nextProps.children.forEach((c) => {
+        if (c.type.muiName == 'TableBody') {
+          tBodyLength = c.props.children.length;
+        }
+      });
+      for (let i = 0; i < tBodyLength; i++) {
+        tBodyArray.push(i);
+      }
+      this.tBodyArray = tBodyArray;
     }
   }
 
@@ -170,6 +197,7 @@ class Table extends Component {
     return React.cloneElement(
       base,
       {
+        preSelected: this.state.preSelected,
         allRowsSelected: this.state.allRowsSelected,
         multiSelectable: this.props.multiSelectable,
         onCellClick: this.onCellClick,
@@ -209,16 +237,29 @@ class Table extends Component {
   };
 
   onRowSelection = (selectedRows) => {
-    if (this.state.allRowsSelected) this.setState({allRowsSelected: false});
-    if (this.props.onRowSelection) this.props.onRowSelection(selectedRows);
+    let sRows;
+    if (this.state.allRowsSelected) {
+      sRows = this.tBodyArray.slice(0);
+      if (selectedRows.length == 1 ) {
+        let index = sRows.indexOf(selectedRows[0]);
+        if (index >= 0){
+          sRows.splice(index, 1);
+        }
+      }
+      this.setState({allRowsSelected: false, preSelected: sRows});
+    } else {
+      sRows = selectedRows;
+    }
+    console.log(sRows);
+    if (this.props.onRowSelection) this.props.onRowSelection(sRows);
   };
 
   onSelectAll = () => {
     if (this.props.onRowSelection) {
       if (!this.state.allRowsSelected) {
-        this.props.onRowSelection('all');
+        this.props.onRowSelection(this.tBodyArray);
       } else {
-        this.props.onRowSelection('none');
+        this.props.onRowSelection([]);
       }
     }
 

@@ -104,6 +104,10 @@ class TableBody extends Component {
      * Override the inline-styles of the root element.
      */
     style: PropTypes.object,
+    /**
+     * default seleted rows;
+     */
+    preSelected: PropTypes.array,
   };
 
   static defaultProps = {
@@ -132,7 +136,7 @@ class TableBody extends Component {
     if (this.props.allRowsSelected !== nextProps.allRowsSelected) {
       if (!nextProps.allRowsSelected) {
         this.setState({
-          selectedRows: [],
+          selectedRows: nextProps.preSelected,
         });
       } else {
         this.setState({
