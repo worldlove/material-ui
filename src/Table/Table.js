@@ -250,7 +250,6 @@ class Table extends Component {
     } else {
       sRows = selectedRows;
     }
-    console.log(sRows);
     if (this.props.onRowSelection) this.props.onRowSelection(sRows);
   };
 
