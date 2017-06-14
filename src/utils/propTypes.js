@@ -1,4 +1,5 @@
-import {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 
 const horizontal = PropTypes.oneOf(['left', 'middle', 'right']);
 const vertical = PropTypes.oneOf(['top', 'center', 'bottom']);

@@ -1,5 +1,6 @@
 import transitions from '../styles/transitions';
-import React, {Component, PropTypes} from 'react';
+import PropTypes from "prop-types";
+import React, {Component} from 'react';
 import propTypes from '../utils/propTypes';
 import Paper from '../Paper';
 

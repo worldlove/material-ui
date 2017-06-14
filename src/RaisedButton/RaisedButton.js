@@ -1,4 +1,5 @@
-import React, {Component, cloneElement, PropTypes} from 'react';
+import React, {Component, cloneElement} from 'react';
+import PropTypes from "prop-types";
 import transitions from '../styles/transitions';
 import {fade} from '../utils/colorManipulator';
 import {createChildFragment} from '../utils/childUtils';

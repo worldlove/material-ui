@@ -3,8 +3,8 @@ import React, {Component,
   cloneElement,
   Children,
   isValidElement,
-  PropTypes,
 } from 'react';
+import PropTypes from 'prop-types';
 import warning from 'warning';
 import TabTemplate from './TabTemplate';
 import InkBar from './InkBar';
