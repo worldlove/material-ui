@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
+
+
 import transitions from '../styles/transitions';
 import {createChildFragment} from '../utils/childUtils';
 import {fade} from '../utils/colorManipulator';
@@ -127,6 +129,10 @@ class FlatButton extends Component {
      * Override the inline-styles of the root element.
      */
     style: PropTypes.object,
+    /**
+     *  set the buttton type attribute
+     */
+    type: PropTypes.string,
   };
 
   static defaultProps = {
@@ -241,6 +247,7 @@ class FlatButton extends Component {
       userSelect: 'none',
       overflow: 'hidden',
       backgroundColor: hovered ? buttonHoverColor : (disabled && disabledColor ? disabledColor : buttonBackgroundColor),
+      cursor: disabled ? 'not-allowed' : 'pointer',
       padding: 0,
       margin: 0,
       textAlign: 'center',
