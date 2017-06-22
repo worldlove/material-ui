@@ -149,7 +149,7 @@ class Table extends Component {
     let tBodyLength = 0;
     this.props.children.forEach((c) => {
       if (c.type.muiName == 'TableBody') {
-        tBodyLength = c.props.children;
+        tBodyLength = c.props.children.length;
       }
     });
     for (let i = 0; i < tBodyLength; i++) {
@@ -257,8 +257,10 @@ class Table extends Component {
   onSelectAll = () => {
     if (this.props.onRowSelection) {
       if (!this.state.allRowsSelected) {
+        this.setState({preSelected: this.tBodyArray});
         this.props.onRowSelection(this.tBodyArray);
       } else {
+        this.setState({preSelected: []});
         this.props.onRowSelection([]);
       }
     }
